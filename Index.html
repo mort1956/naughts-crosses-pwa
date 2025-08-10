@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>10x10 Noughts & Crosses PWA</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#222" />
+  <style>
+    /* Basic monochrome styles */
+    body {
+      margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background: #fff; color: #111;
+      display: flex; flex-direction: column; min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+    }
+    header {
+      padding: 1rem; background: #222; color: white; text-align: center;
+      font-weight: 600; font-size: 1.25rem;
+    }
+    #game {
+      flex-grow: 1; display: grid; grid-template-columns: repeat(10, 1fr);
+      max-width: 600px; margin: 1rem auto; gap: 2px; user-select: none;
+    }
+    button.cell {
+      background: #eee; border: 1px solid #bbb;
+      font-size: 2rem; font-weight: 700; color: #222;
+      aspect-ratio: 1 / 1;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    button.cell.X { color: #a00; }
+    button.cell.O { color: #006; }
+    button.cell:active { background: #ccc; }
+    button.cell.highlight3 { box-shadow: 0 0 6px 2px #666 inset; }
+    button.cell.highlight4 { box-shadow: 0 0 10px 3px #fa0 inset; }
+    #status {
+      max-width: 600px; margin: 0 auto; padding: 0.5rem;
+      text-align: center; font-weight: 600; font-size: 1.1rem;
+    }
+    #controls {
+      max-width: 600px; margin: 0.5rem auto 1rem;
+      display: flex; justify-content: center; gap: 0.5rem;
+    }
+    button.control {
+      background: #222; color: white; border: none;
+      padding: 0.5rem 1rem; font-size: 1rem; font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s ease;
+    }
+    button.control:disabled {
+      background: #888; cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <header>10×10 Noughts & Crosses</header>
+  <div id="game"></div>
+  <div id="status"></div>
+  <div id="controls">
+    <button class="control" id="undoBtn" disabled>Undo</button>
+    <button class="control" id="resetBtn">Reset</button>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(console.error);
+    }
+  </script>
+</body>
+</html>
